@@ -1,0 +1,117 @@
+<!-- All Pages Tracking Code Start -->
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-5RK8S4M');</script>
+<!-- End Google Tag Manager -->
+<script>
+    if (_thrive.offer) {
+        var dataLayer = window.dataLayer || [];
+        dataLayer.push({
+            'event': 'view_item',
+            'datalayer_event_name': _thrive.offer.type,
+            'ecommerce': {
+                'items': [{
+                    'item_name': _thrive.offer.name,
+                    'item_id': _thrive.offer.offer.id,
+                    'price': _thrive.offer.price / 100,
+                    'item_category': _thrive.offer.type
+                }]
+            }
+        });
+    }
+</script>
+<!-- All Pages Tracking Code End -->
+
+<!-- Thrivecart Checkout Page Start-->
+<script>
+    var dataLayer = window.dataLayer || [];
+    var productsArray = []
+    if (_thrive.product.bump_price) {
+        var bump = {
+            'item_name': "Bump Product",
+            'price': _thrive.product.bump_price,
+            'item_category': "bump_offer"
+        }
+        productsArray.push(bump);
+    }
+    var main = {
+        'item_name': _thrive.product.name,
+        'price': _thrive.product.price,
+        'item_category': "main_offer"
+    }
+    productsArray.push(main);
+
+    dataLayer.push({
+        'event': 'begin_checkout',
+        'ecommerce': {
+            'items': productsArray
+        }
+    });
+</script>
+<!-- Thrivecart Checkout Page End-->
+
+<!-- Thrivecart Purchase Code (all payment plans, NOT the Bump field) Start -->
+<script>
+    var products = [];
+    if (_thrive_order.order.bump) {
+        var bump = {
+            'item_name': _thrive_order.order.bump.name,
+            'price': _thrive_order.order.bump.total,
+            'quantity': 1,
+            'item_category': "bump"
+        }
+        products.push(bump);
+    }
+    if (_thrive_order.order.product) {
+        var product = {
+            'item_name': _thrive_order.order.product.name,
+            'price': _thrive_order.order.product.total,
+            'quantity': 1,
+            'item_category': "product"
+        }
+        products.push(product);
+    }
+    if (_thrive_order.order.upsells) {
+        for (keys in _thrive_order.order.upsells) {
+            var product = {
+                'item_name': _thrive_order.order.upsells[keys].name,
+                'price': _thrive_order.order.upsells[keys].total,
+                'quantity': 1,
+                'item_category': "upsells"
+            }
+            products.push(product);
+        }
+    }
+    if (_thrive_order.order.downsells) {
+        for (keys in _thrive_order.order.downsells) {
+            var product = {
+                'item_name': _thrive_order.order.downsells[keys].name,
+                'price': _thrive_order.order.downsells[keys].total,
+                'quantity': 1,
+                'item_category': "downsells"
+            }
+            products.push(product);
+        }
+    }
+    var dataLayer = window.dataLayer || [];
+    dataLayer.push({
+        'event': 'purchase',
+        'ecommerce': {
+            'transaction_id': _thrive_order.order.invoice_id,
+            'affiliation': '',
+            'value': _thrive_order.order.total,
+            'tax': _thrive_order.order.tax,
+            'shipping': _thrive_order.order.shipping,
+            'discount': '0.00',
+            'coupon': '',
+            'items': products
+        }
+    });
+</script>
+<!-- Thrivecart Purchase Code (all payment plans, NOT the Bump field) End -->
